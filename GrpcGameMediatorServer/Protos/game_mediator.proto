@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcGameMediatorServer";
+
+package PlayerGrpc;
+
+service PlayerService{
+	rpc AddPlayerToGame(AddPlayerRequest) returns (CommandReplay);
+	rpc SendPlayerCommand(stream CommandRequest) returns (stream CommandReplay);
+}
+
+message AddPlayerRequest{
+	Player Player = 1;
+}
+
+message CommandRequest{
+	PokerCommand CommandId = 1;
+	Player player = 2;
+}
+
+message CommandReplay{
+	PokerCommand command = 1;
+	repeated Player players = 2;
+}
+
+message Player{
+	int32 Id = 1;
+	string Name = 2;
+	int32 Ammount = 3;
+}
+
+enum PokerCommand {
+    NewPlayer = 0;
+    RemovePlayer = 1;
+    Fold = 2;
+    Raise = 3;
+    Call = 4;
+    Check = 5;
+  }
