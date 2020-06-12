@@ -8,7 +8,7 @@ namespace GrpcGameMediatorServer.Services
 	{
 		Task BroadcastCommandAsync(CommandRequest command);
 		CommandReplay RegisterPlayerToGame(Player customer);
-		void DisconnectCustomer(int GameId, int customerId);
+		void DisconnectPlayer(int GameId, int customerId);
 		void SetCommand(CommandRequest current);
 		void ConnectPlayerStream(int PlayerId, IAsyncStreamWriter<CommandReplay> stream);
 	}

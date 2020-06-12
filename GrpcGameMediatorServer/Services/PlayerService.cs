@@ -42,7 +42,6 @@ namespace GrpcGameMediatorServer
 			}
 			catch (IOException)
 			{ }
-
 		}
 	}
 }

@@ -48,10 +48,9 @@ namespace GrpcGameMediatorServer.Services
 			}
 			catch (Exception ex)
 			{ }
-
 		}
 
-		public void DisconnectCustomer(int GameId, int customerId)
+		public void DisconnectPlayer(int GameId, int customerId)
 		{
 			_gameProvider.GetPokerGameByID(1).RemovePlayer(customerId);
 		}
@@ -72,15 +71,15 @@ namespace GrpcGameMediatorServer.Services
 
 		public CommandReplay RegisterPlayerToGame(Player customer)
 		{
-			TexasHoldemPoker.Player p = new TexasHoldemPoker.Player(customer.Name);
-			p.Id = customer.Id;
-			p.Name = customer.Name;
-			p.Amount = customer.Ammount;
+			TexasHoldemPoker.Player player = new TexasHoldemPoker.Player(customer.Name);
+			player.Id = customer.Id;
+			player.Name = customer.Name;
+			player.Amount = customer.Ammount;
 
-			playerStreamlist.Add(customer.Id, new PlayerStream(p));
+			playerStreamlist.Add(customer.Id, new PlayerStream(player));
 
 			PokerGame pokerGame = _gameProvider.GetPokerGameByID(1);
-			pokerGame.AddPlayer(p);
+			pokerGame.AddPlayer(player);
 
 			return GenerateCommandReplay(PokerCommand.NewPlayer);
 		}

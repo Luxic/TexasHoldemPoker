@@ -1,8 +1,6 @@
-﻿using GrpcGameMediatorServer.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TexasHoldemPoker;
 
 namespace GrpcGameMediatorServer.Providers
@@ -30,23 +28,20 @@ namespace GrpcGameMediatorServer.Providers
 
 		}
 
-
 		private static List<PokerGame> pokerGameList = new List<PokerGame>()
 		{
 			new PokerGame(1)
 		};
 
-
-
-
 		public List<Player> GetAllPlayers()
 		{
 			try
 			{
-				PokerGame g = GetPokerGameByID(1);
-				var lista = g.PokerTable.listPlayers.ToList();
+				PokerGame pokerGame = GetPokerGameByID(1);
+				var lista = pokerGame.PokerTable.listPlayers.ToList();
 
-				List<Player> l = new List<Player>();
+				List<Player> playerList = new List<Player>();
+
 				foreach (TexasHoldemPoker.Player p in lista)
 				{
 					Player pl = new Player();
@@ -54,10 +49,10 @@ namespace GrpcGameMediatorServer.Providers
 					pl.Name = p.Name; 
 					pl.Ammount = p.Amount;
 
-					l.Add(pl);
+					playerList.Add(pl);
 				}
 
-				return l;
+				return playerList;
 			}
 			catch (Exception ex)
 			{ return null; }
